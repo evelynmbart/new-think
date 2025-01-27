@@ -5,6 +5,7 @@ import {
   literature_art,
   pop_culture,
   science_nature,
+  sportsQuiz,
 } from "../questions";
 import "./Game.css";
 
@@ -31,24 +32,40 @@ function Game({ player1Name, player2Name, questionsPerPlayer }: GameProps) {
   const [currentQuestion, setCurrentQuestion] = useState<Question | null>(null);
   const [questionsAnswered, setQuestionsAnswered] = useState(0);
   const [gameOver, setGameOver] = useState(false);
+  const [availableQuestions, setAvailableQuestions] = useState<Question[]>([]);
 
   const categories = [
     science_nature,
     history_geography,
     literature_art,
     pop_culture,
+    sportsQuiz,
   ];
 
   useEffect(() => {
-    getRandomQuestion();
-  }, [currentPlayer]);
+    const allQuestions = categories.flat();
+    const shuffledQuestions = shuffleArray([...allQuestions]);
+    setAvailableQuestions(shuffledQuestions.slice(1));
+    setCurrentQuestion(shuffledQuestions[0]);
+  }, []);
+
+  const shuffleArray = (array: Question[]): Question[] => {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  };
 
   const getRandomQuestion = () => {
-    const randomCategory =
-      categories[Math.floor(Math.random() * categories.length)];
-    const randomQuestion =
-      randomCategory[Math.floor(Math.random() * randomCategory.length)];
-    setCurrentQuestion(randomQuestion);
+    if (availableQuestions.length === 0) {
+      const allQuestions = categories.flat();
+      setAvailableQuestions(shuffleArray([...allQuestions]));
+    }
+
+    const nextQuestion = availableQuestions[0];
+    setAvailableQuestions((prev) => prev.slice(1));
+    setCurrentQuestion(nextQuestion);
   };
 
   const handleAnswer = (answer: string) => {
@@ -66,6 +83,7 @@ function Game({ player1Name, player2Name, questionsPerPlayer }: GameProps) {
       setGameOver(true);
     } else {
       setCurrentPlayer(currentPlayer === 1 ? 2 : 1);
+      getRandomQuestion();
     }
   };
 

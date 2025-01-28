@@ -2,6 +2,13 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Bubblegum Sans", serif;
+  letter-spacing: 0.03em;
+}
+
+button {
+  font-family: "Bubblegum Sans", serif;
+  cursor: pointer;
 }
 
 html {
@@ -9,5 +16,5 @@ html {
 }
 
 body {
-  margin: 2% 4%;
+  margin: 0 4%;
 }

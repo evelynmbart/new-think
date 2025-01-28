@@ -1,6 +1,38 @@
 .app {
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
   /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
+}
+
+.app-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border: 4px solid #667eea;
+  border-radius: 20px;
+  padding: 15px 0;
+  width: 100%;
+  color: #667eea;
+}
+
+.app-header h1 {
+  font-size: clamp(40px, 4vw, 50px);
+  -webkit-background-clip: text;
+  background-clip: text;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.app-header h2 {
+  font-size: clamp(15px, 4vw, 25px);
+  -webkit-background-clip: text;
+  background-clip: text;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .pick-categories {
@@ -21,53 +53,90 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 50px;
+  gap: 80px;
   min-width: 300px;
   width: 100%;
   max-width: 700px;
+  position: relative;
+}
+.categories img {
+  width: clamp(150px, 40%, 500px);
+  height: clamp(150px, 60%, 500px);
+  object-fit: contain;
+  position: absolute;
+  z-index: 2;
+  right: -90px;
+  bottom: 10px;
 }
 
 .categories button {
   width: 100%;
-  min-height: 70px;
-  height: 100px;
+  height: clamp(70px, 10vh, 100px);
   border-radius: 10px;
   border: none;
   font-size: clamp(24px, 4vw, 30px);
   font-weight: bold;
   color: white;
-  cursor: pointer;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   will-change: transform;
 }
 
+.science-nature-container,
+.history-geography-container,
+.literature-art-container,
+.sports-leisure-container,
+.pop-culture-container {
+  position: relative;
+  min-width: 300px;
+  width: 100%;
+  max-width: 700px;
+}
+
+.science-nature-container button {
+  background: linear-gradient(20deg, #42c492, #8cf0ca);
+  position: relative;
+}
+
+.history-geography-container button {
+  background: linear-gradient(20deg, #667eea, #b2bff7);
+  position: relative;
+}
+
+.literature-art-container button {
+  background: linear-gradient(20deg, #764ba2, #cda8f5);
+  position: relative;
+}
+
+.sports-leisure-container button {
+  background: linear-gradient(20deg, #00b4d8, #93e1f0);
+  position: relative;
+}
+
+.pop-culture-container button {
+  background: linear-gradient(20deg, #ff758c, #fcc0c8);
+  position: relative;
+}
+
 @media screen and (max-width: 768px) {
   .categories button {
     height: clamp(70px, 10vh, 100px);
+    min-width: 280px;
   }
-}
 
-.categories button:hover {
-  transform: translateY(-10px);
-}
+  .categories img {
+    width: clamp(80px, 25%, 150px);
+    height: clamp(80px, 25%, 150px);
+    top: -15%;
+    right: -3%;
+  }
 
-#science-nature {
-  background-color: #42c492;
-}
-
-#history-geography {
-  background-color: #667eea;
-}
-
-#literature-art {
-  background-color: #764ba2;
-}
-
-#sports-leisure {
-  background-color: #00b4d8;
-}
-
-#pop-culture {
-  background-color: #ff758c;
+  .science-nature-container,
+  .history-geography-container,
+  .literature-art-container,
+  .sports-leisure-container,
+  .pop-culture-container {
+    min-width: 280px;
+    width: 90%;
+  }
 }

@@ -1,6 +1,6 @@
 # Think!
 
-Think! is a fast-paced, ad-free trivia battle game where you can challenge your friends and learn new things along the way!
+Think! is a fast-paced, ad-free, personal trivia battle game for users looking for a simple and engaging trivia experience.
 
 ## Why I Created Think!
 
@@ -8,21 +8,19 @@ I love trivia games, but when I tried playing **Trivia Crack**, I found the ads 
 
 ## Features
 
-- **Battle Your Friends** – Go head-to-head in real-time trivia duels.
 - **Learn as You Play** – Expand your knowledge across various categories.
 - **Ad-Free Experience** – No interruptions, just pure trivia fun.
 - **Simple & Clean Interface** – No clutter, just an intuitive and engaging game.
 
 ## How to Play
 
-1. Invite a friend or match with a random opponent.
-2. Answer trivia questions as fast and accurately as possible.
-3. Score points and outsmart your opponent to win the round.
-4. Keep playing, keep learning, and become the ultimate trivia champion!
+1. Answer trivia questions as fast and accurately as possible.
+2. Score points to beat your high score.
+3. Keep playing, keep learning, and become the ultimate trivia god!
 
 ## Get Involved
 
-Think! is designed for trivia lovers by a trivia lover. If you have feature suggestions or feedback, feel free to reach out!
+Think! is designed for trivia beginners by a trivia beginner just looking for some anti-brain-rot entertainment. If you have feature suggestions or feedback, feel free to reach out!
 
 ---
 

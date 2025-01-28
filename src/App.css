@@ -82,6 +82,10 @@
   will-change: transform;
 }
 
+/* .categories button:hover {
+  transform: translateY(-5px);
+} */
+
 .science-nature-container,
 .history-geography-container,
 .literature-art-container,
@@ -91,6 +95,27 @@
   min-width: 300px;
   width: 100%;
   max-width: 700px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+.science-nature-container:hover {
+  transform: translateY(-5px);
+}
+
+.history-geography-container:hover {
+  transform: translateY(-5px);
+}
+
+.literature-art-container:hover {
+  transform: translateY(-5px);
+}
+
+.sports-leisure-container:hover {
+  transform: translateY(-5px);
+}
+
+.pop-culture-container:hover {
+  transform: translateY(-5px);
 }
 
 .science-nature-container button {

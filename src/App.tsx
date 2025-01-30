@@ -11,21 +11,55 @@ import { Category, Question } from "./types.ts";
 
 function App() {
   const [category, setCategory] = useState<Category | null>(null);
-  const [question, setQuestion] = useState<Question | null>(null);
+  const [questions, setQuestions] = useState<Question[]>([]);
+  const [count, setCount] = useState<number>(0);
+  const [usedIndices, setUsedIndices] = useState<number[]>([]);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
 
   const handleCategoryClick = (category: Category) => {
     setCategory(category);
+    setCount(0);
+    setUsedIndices([]);
+    // Instead of setting to 0, we'll set a random index after setting questions
   };
 
   useEffect(() => {
     if (category) {
-      setQuestion(
-        questionsData[category][
-          Math.floor(Math.random() * questionsData[category].length)
-        ]
+      setQuestions(questionsData[category]);
+      // Set random initial question when category changes
+      const randomIndex = Math.floor(
+        Math.random() * questionsData[category].length
       );
+      setCurrentQuestionIndex(randomIndex);
+      setUsedIndices([randomIndex]);
     }
   }, [category]);
+
+  const getRandomQuestion = () => {
+    if (!questions.length) return;
+
+    // If all questions have been used, reset the used indices
+    if (usedIndices.length === questions.length) {
+      setUsedIndices([]);
+    }
+
+    // Generate random index that hasn't been used
+    let randomIndex;
+    do {
+      randomIndex = Math.floor(Math.random() * questions.length);
+    } while (usedIndices.includes(randomIndex));
+
+    setUsedIndices([...usedIndices, randomIndex]);
+    setCurrentQuestionIndex(randomIndex);
+  };
+
+  const handleAnswerClick = (id: number) => {
+    const question = questions.find((q) => q.id === id);
+    if (question) {
+      setCount(count + 1);
+      getRandomQuestion();
+    }
+  };
 
   return (
     <Router>
@@ -89,7 +123,33 @@ function App() {
             </div>
           </div>
         </section>
-        <section className="question-container">{}</section>
+        <section className="question-container">
+          <div>
+            {questions.length > 0 && (
+              <div key={questions[currentQuestionIndex].id}>
+                <div>
+                  <h2>{questions[currentQuestionIndex].question}</h2>
+                  <ul>
+                    {questions[currentQuestionIndex].answers.map(
+                      (answer, i) => (
+                        <button type="button" key={i}>
+                          {answer}
+                        </button>
+                      )
+                    )}
+                  </ul>
+                  <button
+                    onClick={() =>
+                      handleAnswerClick(questions[currentQuestionIndex].id)
+                    }
+                  >
+                    Next Question
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+        </section>
       </main>
     </Router>
   );

@@ -6,6 +6,7 @@ import historyGeography from "../public/history-geo.png";
 import popCulture from "../public/pop-culture.png";
 import scienceNature from "../public/science-nat.png";
 import sportsLeisure from "../public/sports.png";
+import thinkLogo from "../public/think.png";
 import "./App.css";
 import { questionsData } from "./questions.tsx";
 import { Category, Question } from "./types.ts";
@@ -66,7 +67,7 @@ function App() {
     <Router>
       <main className="app">
         <header className="app-header">
-          <h1>Th!nk</h1>
+          <img src={thinkLogo} alt="Think logo" />
           <h2>Sharpen your skills, one question at a time!</h2>
         </header>
         <section className="pick-categories">

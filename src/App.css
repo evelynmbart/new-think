@@ -42,11 +42,9 @@
   }
 }
 
-.app-header h1 {
-  font-size: clamp(40px, 4vw, 50px);
-  -webkit-background-clip: text;
-  background-clip: text;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+.app-header img {
+  width: 200px;
+  margin-bottom: -25px;
 }
 
 .app-header h2 {
@@ -129,7 +127,7 @@
   font-weight: bold;
   color: white;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: -1px 8px 10px rgba(0, 0, 0, 0.2);
   will-change: transform;
 }
 
@@ -195,9 +193,23 @@
 }
 
 @media screen and (max-width: 768px) {
+  .app-header h2 {
+    display: none;
+  }
+
+  .app-header img {
+    width: 300px;
+  }
+
   .categories {
     gap: 30px;
     padding-top: 30px;
+  }
+
+  #brain-icon {
+    top: 5px;
+    left: 5px;
+    font-size: 30px;
   }
 
   .categories button {

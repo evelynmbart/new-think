@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { LuBrain } from "react-icons/lu";
 import { BrowserRouter as Router } from "react-router-dom";
 import literatureArt from "../public/art-lit.png";
 import historyGeography from "../public/history-geo.png";
@@ -69,9 +70,10 @@ function App() {
           <h2>Sharpen your skills, one question at a time!</h2>
         </header>
         <section className="pick-categories">
-          <h3>Pick a category</h3>
+          <h3>Choose a category</h3>
           <div className="categories">
             <div className="history-geography-container">
+              <LuBrain id="brain-icon" />
               <img
                 src={historyGeography}
                 alt="Globe and maps image"
@@ -82,6 +84,7 @@ function App() {
               </button>
             </div>
             <div className="science-nature-container">
+              <LuBrain id="brain-icon" />
               <img
                 src={scienceNature}
                 alt="Plant growing from beaker image"
@@ -92,6 +95,7 @@ function App() {
               </button>
             </div>
             <div className="literature-art-container">
+              <LuBrain id="brain-icon" />
               <img
                 src={literatureArt}
                 alt="Stacked books image"
@@ -102,6 +106,7 @@ function App() {
               </button>
             </div>
             <div className="pop-culture-container">
+              <LuBrain id="brain-icon" />
               <img
                 src={popCulture}
                 alt="Camera and music notes image"
@@ -112,6 +117,7 @@ function App() {
               </button>
             </div>
             <div className="sports-leisure-container">
+              <LuBrain id="brain-icon" />
               <img
                 src={sportsLeisure}
                 alt="Different sports equipment"

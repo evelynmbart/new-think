@@ -5,7 +5,7 @@
   align-items: center;
   justify-content: center;
   gap: 50px;
-  /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
+  margin-top: 10px;
 }
 
 .app-header {
@@ -13,12 +13,33 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: white;
-  border: 4px solid #667eea;
+  background: linear-gradient(
+    40deg,
+    #9bacfa,
+    #fda2ae,
+    #7aecc0,
+    #71dff5,
+    #bf90f3
+  );
+  background-size: 500% 500%;
+  animation: gradientAnimation 23s ease infinite;
+  /* border: 4px solid #667eea; */
   border-radius: 20px;
   padding: 15px 0;
   width: 100%;
-  color: #667eea;
+  color: white;
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .app-header h1 {
@@ -41,7 +62,6 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  gap: 50px;
   font-size: clamp(35px, 4vw, 40px);
   -webkit-background-clip: text;
   background-clip: text;
@@ -53,25 +73,41 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 80px;
+  gap: clamp(40px, 10vh, 60px);
   min-width: 300px;
   width: 100%;
-  max-width: 700px;
+  max-width: 900px;
   position: relative;
+  /* border: 4px solid #667eea; */
+  padding: 70px;
+  border-radius: 20px;
 }
 .categories img {
-  width: clamp(150px, 40%, 500px);
-  height: clamp(150px, 60%, 500px);
+  /* width: clamp(150px, 40%, 500px); */
+  width: 170px;
+  /* height: clamp(150px, 60%, 500px); */
+  height: 150px;
   object-fit: contain;
   position: absolute;
   z-index: 2;
-  right: -90px;
+  right: -70px;
   bottom: 10px;
+}
+.literature-art-container img {
+  bottom: -5px;
+}
+
+.pop-culture-container img {
+  bottom: -5px;
+}
+
+.sports-leisure-container img {
+  bottom: -5px;
 }
 
 .categories button {
   width: 100%;
-  height: clamp(70px, 10vh, 100px);
+  height: clamp(70px, 10vh, 150px);
   border-radius: 10px;
   border: none;
   font-size: clamp(24px, 4vw, 30px);
@@ -94,7 +130,7 @@
   position: relative;
   min-width: 300px;
   width: 100%;
-  max-width: 700px;
+  max-width: 550px;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   will-change: transform;
 }
@@ -144,16 +180,48 @@
 }
 
 @media screen and (max-width: 768px) {
+  .categories {
+    gap: 30px;
+    padding-top: 30px;
+  }
+
   .categories button {
     height: clamp(70px, 10vh, 100px);
     min-width: 280px;
   }
 
-  .categories img {
-    width: clamp(80px, 25%, 150px);
-    height: clamp(80px, 25%, 150px);
-    top: -15%;
-    right: -3%;
+  .history-geography-container img {
+    height: 110px;
+    width: 110px;
+    top: -10%;
+    right: -23%;
+  }
+
+  .science-nature-container img {
+    height: 110px;
+    width: 110px;
+    top: -10%;
+    right: -17%;
+  }
+
+  .literature-art-container img {
+    height: 160px;
+    width: 120px;
+    top: -35%;
+    right: -20%;
+  }
+
+  .pop-culture-container img {
+    height: 150px;
+    width: 140px;
+    top: -30%;
+  }
+
+  .sports-leisure-container img {
+    height: 140px;
+    width: 120px;
+    top: -20%;
+    right: -20%;
   }
 
   .science-nature-container,

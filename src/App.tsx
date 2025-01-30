@@ -67,9 +67,18 @@ function App() {
     <Router>
       <main className="app">
         <header className="app-header">
-          <img src={thinkLogo} alt="Think logo" />
+          <img src={thinkLogo} alt="Think logo" title="Think" />
           <h2>Sharpen your skills, one question at a time!</h2>
         </header>
+        <section className="time-selection">
+          <h3>Set a time limit:</h3>
+          <div className="time-selection-buttons">
+            <button type="button">30 seconds</button>
+            <button type="button">45 seconds</button>
+            <button type="button">60 seconds</button>
+            <button type="button">90 seconds</button>
+          </div>
+        </section>
         <section className="pick-categories">
           <h3>Choose a category</h3>
           <div className="categories">
@@ -80,7 +89,10 @@ function App() {
                 alt="Globe and maps image"
                 id="history-geography"
               />
-              <button onClick={() => handleCategoryClick("history")}>
+              <button
+                onClick={() => handleCategoryClick("history")}
+                title="History & Geography"
+              >
                 History & Geography
               </button>
             </div>
@@ -91,7 +103,10 @@ function App() {
                 alt="Plant growing from beaker image"
                 id="science-nature"
               />
-              <button onClick={() => handleCategoryClick("science")}>
+              <button
+                onClick={() => handleCategoryClick("science")}
+                title="Science & Nature"
+              >
                 Science & Nature
               </button>
             </div>
@@ -102,7 +117,10 @@ function App() {
                 alt="Stacked books image"
                 id="literature-art"
               />
-              <button onClick={() => handleCategoryClick("art")}>
+              <button
+                onClick={() => handleCategoryClick("art")}
+                title="Art & Literature"
+              >
                 Art & Literature
               </button>
             </div>
@@ -113,7 +131,10 @@ function App() {
                 alt="Camera and music notes image"
                 id="pop-culture"
               />
-              <button onClick={() => handleCategoryClick("pop")}>
+              <button
+                onClick={() => handleCategoryClick("pop")}
+                title="Pop Culture"
+              >
                 Pop Culture
               </button>
             </div>
@@ -124,7 +145,10 @@ function App() {
                 alt="Different sports equipment"
                 id="sports-leisure"
               />
-              <button onClick={() => handleCategoryClick("sports")}>
+              <button
+                onClick={() => handleCategoryClick("sports")}
+                title="Sports & Leisure"
+              >
                 Sports & Leisure
               </button>
             </div>

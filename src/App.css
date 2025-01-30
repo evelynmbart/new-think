@@ -45,6 +45,7 @@
 .app-header img {
   width: 200px;
   margin-bottom: -25px;
+  cursor: pointer;
 }
 
 .app-header h2 {
@@ -52,6 +53,48 @@
   -webkit-background-clip: text;
   background-clip: text;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.time-selection {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.time-selection h3 {
+  font-size: clamp(25px, 4vw, 35px);
+  background-clip: text;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.time-selection-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.time-selection button {
+  font-size: clamp(15px, 4vw, 25px);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 10px 20px;
+  background-color: transparent;
+  border: 2px solid white;
+  cursor: pointer;
+}
+
+.time-selection button:hover {
+  border: 2px solid #fda2ae;
+  box-shadow: 0px 0px 10px 0px rgba(253, 162, 174, 0.5);
+}
+
+.time-selection-buttons button:focus {
+  background-color: #fda2ae;
+  color: white;
+  border: none;
+  box-shadow: 0px 0px 10px 0px rgba(253, 162, 174, 0.5);
 }
 
 .pick-categories {
@@ -127,7 +170,7 @@
   font-weight: bold;
   color: white;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: -1px 8px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.2);
   will-change: transform;
 }
 
@@ -148,23 +191,23 @@
   will-change: transform;
 }
 .science-nature-container:hover {
-  transform: translateY(-5px);
+  transform: translateY(-8px);
 }
 
 .history-geography-container:hover {
-  transform: translateY(-5px);
+  transform: translateY(-8px);
 }
 
 .literature-art-container:hover {
-  transform: translateY(-5px);
+  transform: translateY(-8px);
 }
 
 .sports-leisure-container:hover {
-  transform: translateY(-5px);
+  transform: translateY(-8px);
 }
 
 .pop-culture-container:hover {
-  transform: translateY(-5px);
+  transform: translateY(-8px);
 }
 
 .science-nature-container button {
@@ -199,6 +242,16 @@
 
   .app-header img {
     width: 300px;
+  }
+
+  .time-selection {
+    flex-direction: column;
+  }
+
+  .time-selection-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
   }
 
   .categories {

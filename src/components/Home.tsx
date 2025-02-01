@@ -10,6 +10,7 @@ import "./Home.css";
 
 import { questionsData } from "../questions.tsx";
 import { Category, Question } from "../types.ts";
+import Game from "./Game.tsx";
 
 export default function Home() {
   const [category, setCategory] = useState<Category | null>(null);
@@ -163,29 +164,11 @@ export default function Home() {
         </div>
       </section>
       <section className="question-container">
-        <div>
-          {questions.length > 0 && (
-            <div key={questions[currentQuestionIndex].id}>
-              <div>
-                <h2>{questions[currentQuestionIndex].question}</h2>
-                <ul>
-                  {questions[currentQuestionIndex].answers.map((answer, i) => (
-                    <button type="button" key={i}>
-                      {answer}
-                    </button>
-                  ))}
-                </ul>
-                <button
-                  onClick={() =>
-                    handleAnswerClick(questions[currentQuestionIndex].id)
-                  }
-                >
-                  Next Question
-                </button>
-              </div>
-            </div>
-          )}
-        </div>
+        <Game
+          questions={questions}
+          handleAnswerClick={handleAnswerClick}
+          currentQuestionIndex={currentQuestionIndex}
+        />
       </section>
     </main>
   );

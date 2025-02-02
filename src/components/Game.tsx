@@ -22,6 +22,8 @@ export default function Game({
 }) {
   const [questionNumber, setQuestionNumber] = useState<number>(1);
   const navigate = useNavigate();
+  const [isQuizOver, setIsQuizOver] = useState<boolean>(false);
+  const [timeRemaining, setTimeRemaining] = useState<number>(10);
   return (
     <section
       className="game-container"

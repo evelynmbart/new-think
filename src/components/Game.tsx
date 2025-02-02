@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { RiCloseCircleLine } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
 import literatureArt from "../../public/art-lit.png";
 import historyGeography from "../../public/history-geo.png";
 import popCulture from "../../public/pop-culture.png";
@@ -19,6 +21,7 @@ export default function Game({
   currentQuestionIndex: number;
 }) {
   const [questionNumber, setQuestionNumber] = useState<number>(1);
+  const navigate = useNavigate();
   return (
     <section
       className="game-container"
@@ -37,6 +40,19 @@ export default function Game({
             : "#f4b9b9",
       }}
     >
+      <RiCloseCircleLine
+        id="close-button"
+        color="white"
+        size={35}
+        onClick={() => {
+          const confirm = window.confirm(
+            "Are you sure you want to leave the quiz?"
+          );
+          if (confirm) {
+            navigate("/");
+          }
+        }}
+      />
       {questions.length > 0 && (
         <div
           key={questions[currentQuestionIndex].id}

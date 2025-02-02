@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { LuBrain } from "react-icons/lu";
 import { useNavigate } from "react-router-dom";
 import literatureArt from "../../public/art-lit.png";
@@ -12,30 +12,23 @@ import { Category, Question } from "../types.ts";
 import "./Home.css";
 
 export default function Home({
-  questions,
   setQuestions,
-  currentQuestionIndex,
   setCurrentQuestionIndex,
-  count,
   setCount,
-  usedIndices,
   setUsedIndices,
-  timeLimit,
   setTimeLimit,
+  category,
+  setCategory,
 }: {
-  questions: Question[];
   setQuestions: (questions: Question[]) => void;
-  currentQuestionIndex: number;
   setCurrentQuestionIndex: (currentQuestionIndex: number) => void;
-  count: number;
   setCount: (count: number) => void;
-  usedIndices: number[];
   setUsedIndices: (usedIndices: number[]) => void;
-  timeLimit: number;
   setTimeLimit: (timeLimit: number) => void;
+  category: Category | null;
+  setCategory: (category: Category | null) => void;
 }) {
   const navigate = useNavigate();
-  const [category, setCategory] = useState<Category | null>(null);
 
   const handleCategoryClick = (category: Category) => {
     setCategory(category);
@@ -154,13 +147,6 @@ export default function Home({
           </div>
         </div>
       </section>
-      {/* <section className="question-container">
-        <Game
-          questions={questions}
-          handleAnswerClick={handleAnswerClick}
-          currentQuestionIndex={currentQuestionIndex}
-        />
-      </section> */}
     </main>
   );
 }

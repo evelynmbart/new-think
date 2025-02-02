@@ -3,21 +3,17 @@ import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import "./App.css";
 import Game from "./components/Game.tsx";
 import Home from "./components/Home.tsx";
-import { Question } from "./types";
+import { Category, Question } from "./types";
 
 function App() {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [category, setCategory] = useState<Category | null>(null);
 
   const [count, setCount] = useState<number>(0);
   const [usedIndices, setUsedIndices] = useState<number[]>([]);
 
   const [timeLimit, setTimeLimit] = useState<number>(30);
-
-  // const handleAnswerClick = (id: number) => {
-  //   // Add answer handling logic here
-  //   setCurrentQuestionIndex((prev) => prev + 1);
-  // };
 
   const getRandomQuestion = () => {
     if (!questions.length) return;
@@ -53,16 +49,13 @@ function App() {
             path="/"
             element={
               <Home
-                questions={questions}
                 setQuestions={setQuestions}
-                currentQuestionIndex={currentQuestionIndex}
                 setCurrentQuestionIndex={setCurrentQuestionIndex}
-                count={count}
                 setCount={setCount}
-                usedIndices={usedIndices}
                 setUsedIndices={setUsedIndices}
-                timeLimit={timeLimit}
                 setTimeLimit={setTimeLimit}
+                category={category}
+                setCategory={setCategory}
               />
             }
           />
@@ -70,6 +63,7 @@ function App() {
             path="/game"
             element={
               <Game
+                category={category}
                 questions={questions}
                 currentQuestionIndex={currentQuestionIndex}
                 handleAnswerClick={handleAnswerClick}

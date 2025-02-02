@@ -1,3 +1,9 @@
+import { useState } from "react";
+import literatureArt from "../../public/art-lit.png";
+import historyGeography from "../../public/history-geo.png";
+import popCulture from "../../public/pop-culture.png";
+import scienceNature from "../../public/science-nat.png";
+import sportsLeisure from "../../public/sports.png";
 import { Category, Question } from "../types.ts";
 import "./Game.css";
 
@@ -12,6 +18,7 @@ export default function Game({
   handleAnswerClick: (id: number) => void;
   currentQuestionIndex: number;
 }) {
+  const [questionNumber, setQuestionNumber] = useState<number>(1);
   return (
     <section
       className="game-container"
@@ -31,20 +38,39 @@ export default function Game({
       }}
     >
       {questions.length > 0 && (
-        <div key={questions[currentQuestionIndex].id}>
-          <div>
+        <div
+          key={questions[currentQuestionIndex].id}
+          className="question-container"
+        >
+          <div className="question-content">
+            <img
+              src={
+                category === "history"
+                  ? historyGeography
+                  : category === "science"
+                  ? scienceNature
+                  : category === "art"
+                  ? literatureArt
+                  : category === "pop"
+                  ? popCulture
+                  : sportsLeisure
+              }
+            />
+            <p className="question-number">Question {questionNumber}</p>
             <h2>{questions[currentQuestionIndex].question}</h2>
-            <ul>
+            <ul className="answer-buttons">
               {questions[currentQuestionIndex].answers.map((answer, i) => (
-                <button type="button" key={i}>
+                <button type="button" key={i} className="answer-button">
                   {answer}
                 </button>
               ))}
             </ul>
             <button
-              onClick={() =>
-                handleAnswerClick(questions[currentQuestionIndex].id)
-              }
+              className="next-button"
+              onClick={() => {
+                handleAnswerClick(questions[currentQuestionIndex].id);
+                setQuestionNumber(questionNumber + 1);
+              }}
             >
               Next Question
             </button>

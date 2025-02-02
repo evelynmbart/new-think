@@ -5,7 +5,7 @@
   align-items: center;
   justify-content: center;
   gap: 50px;
-  margin-top: 10px;
+  margin: 10px 4%;
 }
 
 .app-header {
@@ -165,7 +165,7 @@
 .categories button {
   width: 100%;
   height: clamp(70px, 10vh, 150px);
-  border-radius: 10px;
+  border-radius: 20px;
   border: none;
   font-size: clamp(24px, 4vw, 30px);
   font-weight: bold;

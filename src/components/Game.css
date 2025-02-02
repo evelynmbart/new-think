@@ -34,7 +34,7 @@
 .question-content img {
   width: min(250px, 80vw);
   height: min(250px, 80vw);
-  object-fit: cover;
+  object-fit: contain;
   margin-bottom: 30px;
 }
 
@@ -48,7 +48,7 @@
 }
 
 .question-content h2 {
-  font-size: clamp(1.5rem, 5vw, 3rem);
+  font-size: clamp(2.1rem, 5vw, 3rem);
   text-align: center;
   color: white;
   padding: 10px 20px;

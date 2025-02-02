@@ -7,19 +7,35 @@ import popCulture from "../../public/pop-culture.png";
 import scienceNature from "../../public/science-nat.png";
 import sportsLeisure from "../../public/sports.png";
 import thinkLogo from "../../public/think.png";
-import "./Home.css";
-
 import { questionsData } from "../questions.tsx";
 import { Category, Question } from "../types.ts";
+import "./Home.css";
 
-export default function Home() {
+export default function Home({
+  questions,
+  setQuestions,
+  currentQuestionIndex,
+  setCurrentQuestionIndex,
+  count,
+  setCount,
+  usedIndices,
+  setUsedIndices,
+  timeLimit,
+  setTimeLimit,
+}: {
+  questions: Question[];
+  setQuestions: (questions: Question[]) => void;
+  currentQuestionIndex: number;
+  setCurrentQuestionIndex: (currentQuestionIndex: number) => void;
+  count: number;
+  setCount: (count: number) => void;
+  usedIndices: number[];
+  setUsedIndices: (usedIndices: number[]) => void;
+  timeLimit: number;
+  setTimeLimit: (timeLimit: number) => void;
+}) {
   const navigate = useNavigate();
   const [category, setCategory] = useState<Category | null>(null);
-  const [questions, setQuestions] = useState<Question[]>([]);
-  const [count, setCount] = useState<number>(0);
-  const [usedIndices, setUsedIndices] = useState<number[]>([]);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
-  const [timeLimit, setTimeLimit] = useState<number>(30);
 
   const handleCategoryClick = (category: Category) => {
     setCategory(category);
@@ -39,32 +55,6 @@ export default function Home() {
       setUsedIndices([randomIndex]);
     }
   }, [category]);
-
-  const getRandomQuestion = () => {
-    if (!questions.length) return;
-
-    // If all questions have been used, reset the used indices
-    if (usedIndices.length === questions.length) {
-      setUsedIndices([]);
-    }
-
-    // Generate random index that hasn't been used
-    let randomIndex;
-    do {
-      randomIndex = Math.floor(Math.random() * questions.length);
-    } while (usedIndices.includes(randomIndex));
-
-    setUsedIndices([...usedIndices, randomIndex]);
-    setCurrentQuestionIndex(randomIndex);
-  };
-
-  const handleAnswerClick = (id: number) => {
-    const question = questions.find((q) => q.id === id);
-    if (question) {
-      setCount(count + 1);
-      getRandomQuestion();
-    }
-  };
 
   return (
     <main className="app">

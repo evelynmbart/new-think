@@ -11,7 +11,7 @@ export default function Game({
   currentQuestionIndex: number;
 }) {
   return (
-    <main className="game-container">
+    <section className="game-container">
       {questions.length > 0 && (
         <div key={questions[currentQuestionIndex].id}>
           <div>
@@ -33,6 +33,6 @@ export default function Game({
           </div>
         </div>
       )}
-    </main>
+    </section>
   );
 }

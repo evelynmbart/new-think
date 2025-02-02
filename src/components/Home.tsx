@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { LuBrain } from "react-icons/lu";
+import { useNavigate } from "react-router-dom";
 import literatureArt from "../../public/art-lit.png";
 import historyGeography from "../../public/history-geo.png";
 import popCulture from "../../public/pop-culture.png";
@@ -10,9 +11,9 @@ import "./Home.css";
 
 import { questionsData } from "../questions.tsx";
 import { Category, Question } from "../types.ts";
-import Game from "./Game.tsx";
 
 export default function Home() {
+  const navigate = useNavigate();
   const [category, setCategory] = useState<Category | null>(null);
   const [questions, setQuestions] = useState<Question[]>([]);
   const [count, setCount] = useState<number>(0);
@@ -24,7 +25,7 @@ export default function Home() {
     setCategory(category);
     setCount(0);
     setUsedIndices([]);
-    // Instead of setting to 0, we'll set a random index after setting questions
+    navigate("/game");
   };
 
   useEffect(() => {
@@ -163,13 +164,13 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="question-container">
+      {/* <section className="question-container">
         <Game
           questions={questions}
           handleAnswerClick={handleAnswerClick}
           currentQuestionIndex={currentQuestionIndex}
         />
-      </section>
+      </section> */}
     </main>
   );
 }

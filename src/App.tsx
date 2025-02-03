@@ -67,6 +67,7 @@ function App() {
                 questions={questions}
                 currentQuestionIndex={currentQuestionIndex}
                 handleAnswerClick={handleAnswerClick}
+                timeLimit={timeLimit}
               />
             }
           />

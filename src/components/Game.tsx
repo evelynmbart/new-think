@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { RiCloseCircleLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import literatureArt from "../../public/art-lit.png";
@@ -14,16 +14,37 @@ export default function Game({
   questions,
   handleAnswerClick,
   currentQuestionIndex,
+  timeLimit,
 }: {
   category: Category | null;
   questions: Question[];
   handleAnswerClick: (id: number) => void;
   currentQuestionIndex: number;
+  timeLimit: number;
 }) {
   const [questionNumber, setQuestionNumber] = useState<number>(1);
   const navigate = useNavigate();
   const [isQuizOver, setIsQuizOver] = useState<boolean>(false);
-  const [timeRemaining, setTimeRemaining] = useState<number>(10);
+  const [timeRemaining, setTimeRemaining] = useState<number>(timeLimit);
+
+  useEffect(() => {
+    if (timeRemaining <= 0) return;
+
+    const intervalId = setInterval(() => {
+      setTimeRemaining((prev) => {
+        if (prev <= 1) {
+          clearInterval(intervalId);
+          setIsQuizOver(true);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, [timeRemaining]);
+
+  console.log(timeRemaining);
   return (
     <section
       className="game-container"
@@ -55,45 +76,52 @@ export default function Game({
           }
         }}
       />
-      {questions.length > 0 && (
-        <div
-          key={questions[currentQuestionIndex].id}
-          className="question-container"
-        >
-          <div className="question-content">
-            <img
-              src={
-                category === "history"
-                  ? historyGeography
-                  : category === "science"
-                  ? scienceNature
-                  : category === "art"
-                  ? literatureArt
-                  : category === "pop"
-                  ? popCulture
-                  : sportsLeisure
-              }
-            />
-            <p className="question-number">Question {questionNumber}</p>
-            <h2>{questions[currentQuestionIndex].question}</h2>
-            <ul className="answer-buttons">
-              {questions[currentQuestionIndex].answers.map((answer, i) => (
-                <button type="button" key={i} className="answer-button">
-                  {answer}
-                </button>
-              ))}
-            </ul>
-            <button
-              className="next-button"
-              onClick={() => {
-                handleAnswerClick(questions[currentQuestionIndex].id);
-                setQuestionNumber(questionNumber + 1);
-              }}
-            >
-              Next Question
-            </button>
-          </div>
+      {isQuizOver ? (
+        <div className="quiz-over-container">
+          <h1>Quiz Over</h1>
+          <p>Time Remaining: {timeRemaining}</p>
         </div>
+      ) : (
+        questions.length > 0 && (
+          <div
+            key={questions[currentQuestionIndex].id}
+            className="question-container"
+          >
+            <div className="question-content">
+              <img
+                src={
+                  category === "history"
+                    ? historyGeography
+                    : category === "science"
+                    ? scienceNature
+                    : category === "art"
+                    ? literatureArt
+                    : category === "pop"
+                    ? popCulture
+                    : sportsLeisure
+                }
+              />
+              <p className="question-number">Question {questionNumber}</p>
+              <h2>{questions[currentQuestionIndex].question}</h2>
+              <ul className="answer-buttons">
+                {questions[currentQuestionIndex].answers.map((answer, i) => (
+                  <button type="button" key={i} className="answer-button">
+                    {answer}
+                  </button>
+                ))}
+              </ul>
+              <button
+                className="next-button"
+                onClick={() => {
+                  handleAnswerClick(questions[currentQuestionIndex].id);
+                  setQuestionNumber(questionNumber + 1);
+                }}
+              >
+                Next Question
+              </button>
+            </div>
+          </div>
+        )
       )}
     </section>
   );

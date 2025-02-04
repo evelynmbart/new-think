@@ -76,10 +76,15 @@ export default function Game({
           }
         }}
       />
+      <div className="timer-container">
+        <p style={{ display: isQuizOver ? "none" : "block" }}>
+          Time Remaining: {timeRemaining} seconds
+        </p>
+      </div>
       {isQuizOver ? (
         <div className="quiz-over-container">
           <h1>Quiz Over</h1>
-          <p>Time Remaining: {timeRemaining}</p>
+          <p>Let's see how you did!</p>
         </div>
       ) : (
         questions.length > 0 && (

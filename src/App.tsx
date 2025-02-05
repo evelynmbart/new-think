@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import "./App.css";
-import Game from "./components/Game.tsx";
-import Home from "./components/Home.tsx";
+import "./css/App.css";
+import Game from "./pages/Game.tsx";
+import Home from "./pages/Home.tsx";
 import { Category, Question } from "./types";
 
 function App() {
@@ -10,7 +10,6 @@ function App() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [category, setCategory] = useState<Category | null>(null);
 
-  const [count, setCount] = useState<number>(0);
   const [usedIndices, setUsedIndices] = useState<number[]>([]);
 
   const [timeLimit, setTimeLimit] = useState<number>(30);
@@ -36,7 +35,6 @@ function App() {
   const handleAnswerClick = (id: number) => {
     const question = questions.find((q) => q.id === id);
     if (question) {
-      setCount(count + 1);
       getRandomQuestion();
     }
   };
@@ -51,7 +49,6 @@ function App() {
               <Home
                 setQuestions={setQuestions}
                 setCurrentQuestionIndex={setCurrentQuestionIndex}
-                setCount={setCount}
                 setUsedIndices={setUsedIndices}
                 setTimeLimit={setTimeLimit}
                 category={category}

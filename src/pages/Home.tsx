@@ -7,14 +7,14 @@ import popCulture from "../../public/pop-culture.png";
 import scienceNature from "../../public/science-nat.png";
 import sportsLeisure from "../../public/sports.png";
 import thinkLogo from "../../public/think.png";
+import "../css/Home.css";
 import { questionsData } from "../questions.tsx";
 import { Category, Question } from "../types.ts";
-import "./Home.css";
 
 export default function Home({
   setQuestions,
   setCurrentQuestionIndex,
-  setCount,
+
   setUsedIndices,
   setTimeLimit,
   category,
@@ -22,7 +22,6 @@ export default function Home({
 }: {
   setQuestions: (questions: Question[]) => void;
   setCurrentQuestionIndex: (currentQuestionIndex: number) => void;
-  setCount: (count: number) => void;
   setUsedIndices: (usedIndices: number[]) => void;
   setTimeLimit: (timeLimit: number) => void;
   category: Category | null;
@@ -32,7 +31,7 @@ export default function Home({
 
   const handleCategoryClick = (category: Category) => {
     setCategory(category);
-    setCount(0);
+
     setUsedIndices([]);
     navigate("/game");
   };

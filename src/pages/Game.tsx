@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { CircularProgressbar } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
 import { RiCloseCircleLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import literatureArt from "../../public/art-lit.png";
@@ -6,8 +8,8 @@ import historyGeography from "../../public/history-geo.png";
 import popCulture from "../../public/pop-culture.png";
 import scienceNature from "../../public/science-nat.png";
 import sportsLeisure from "../../public/sports.png";
+import "../css/Game.css";
 import { Category, Question } from "../types.ts";
-import "./Game.css";
 
 export default function Game({
   category,
@@ -26,6 +28,8 @@ export default function Game({
   const navigate = useNavigate();
   const [isQuizOver, setIsQuizOver] = useState<boolean>(false);
   const [timeRemaining, setTimeRemaining] = useState<number>(timeLimit);
+  const [userAnswers, setUserAnswers] = useState<string[]>([]);
+  const [score, setScore] = useState<number>(0);
 
   useEffect(() => {
     if (timeRemaining <= 0) return;
@@ -44,7 +48,19 @@ export default function Game({
     return () => clearInterval(intervalId);
   }, [timeRemaining]);
 
-  console.log(timeRemaining);
+  const handleUserAnswer = (answer: string) => {
+    setUserAnswers((prev) => {
+      const newAnswers = [...prev];
+      newAnswers[currentQuestionIndex] = answer;
+      return newAnswers;
+    });
+
+    // Update score immediately if answer is correct
+    if (answer === questions[currentQuestionIndex].correct) {
+      setScore((prev) => prev + 1);
+    }
+  };
+
   return (
     <section
       className="game-container"
@@ -77,15 +93,29 @@ export default function Game({
         }}
       />
       <div className="timer-container">
-        <p style={{ display: isQuizOver ? "none" : "block" }}>
-          Time Remaining: {timeRemaining} seconds
-        </p>
+        <div className="timer">
+          <CircularProgressbar
+            value={timeRemaining}
+            maxValue={timeLimit}
+            text={`${timeRemaining}sec`}
+            styles={{
+              path: {
+                stroke: timeRemaining <= 10 ? "#fe4a4a" : "white",
+              },
+              text: {
+                fill: "white",
+                fontSize: "20px",
+              },
+            }}
+          />
+        </div>
       </div>
       {isQuizOver ? (
-        <div className="quiz-over-container">
+        <section className="quiz-over-container">
           <h1>Quiz Over</h1>
           <p>Let's see how you did!</p>
-        </div>
+          <p>{score}</p>
+        </section>
       ) : (
         questions.length > 0 && (
           <div
@@ -110,7 +140,12 @@ export default function Game({
               <h2>{questions[currentQuestionIndex].question}</h2>
               <ul className="answer-buttons">
                 {questions[currentQuestionIndex].answers.map((answer, i) => (
-                  <button type="button" key={i} className="answer-button">
+                  <button
+                    type="button"
+                    key={i}
+                    className="answer-button"
+                    onClick={() => handleUserAnswer(answer)}
+                  >
                     {answer}
                   </button>
                 ))}

@@ -28,7 +28,7 @@ export default function Game({
   const navigate = useNavigate();
   const [isQuizOver, setIsQuizOver] = useState<boolean>(false);
   const [timeRemaining, setTimeRemaining] = useState<number>(timeLimit);
-  const [userAnswers, setUserAnswers] = useState<string[]>([]);
+  const [userAnswers, setUserAnswers] = useState<{ [key: number]: string }>({});
   const [score, setScore] = useState<number>(0);
 
   useEffect(() => {
@@ -49,17 +49,21 @@ export default function Game({
   }, [timeRemaining]);
 
   const handleUserAnswer = (answer: string) => {
-    setUserAnswers((prev) => {
-      const newAnswers = [...prev];
-      newAnswers[currentQuestionIndex] = answer;
-      return newAnswers;
-    });
+    setUserAnswers((prev) => ({
+      ...prev,
+      [currentQuestionIndex]: answer,
+    }));
 
     // Update score immediately if answer is correct
     if (answer === questions[currentQuestionIndex].correct) {
       setScore((prev) => prev + 1);
     }
   };
+
+  const day: number = new Date().getDate();
+  const month: number = new Date().getMonth();
+
+  console.log(userAnswers);
 
   return (
     <section
@@ -93,7 +97,10 @@ export default function Game({
         }}
       />
       <div className="timer-container">
-        <div className="timer">
+        <div
+          className="timer"
+          style={{ display: timeRemaining === 0 ? "none" : "block" }}
+        >
           <CircularProgressbar
             value={timeRemaining}
             maxValue={timeLimit}
@@ -112,9 +119,24 @@ export default function Game({
       </div>
       {isQuizOver ? (
         <section className="quiz-over-container">
-          <h1>Quiz Over</h1>
-          <p>Let's see how you did!</p>
-          <p>{score}</p>
+          <button className="quiz-over-content">
+            <div className="quiz-one">
+              <h3>
+                {category === "history"
+                  ? "History & Geography"
+                  : category === "science"
+                  ? "Science & Nature"
+                  : category === "art"
+                  ? "Art & Literature"
+                  : category === "pop"
+                  ? "Pop Culture"
+                  : "Sports & Leisure"}
+              </h3>
+              <p>
+                {score} / {questionNumber}
+              </p>
+            </div>
+          </button>
         </section>
       ) : (
         questions.length > 0 && (

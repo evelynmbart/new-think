@@ -9,7 +9,7 @@ import popCulture from "../../public/pop-culture.png";
 import scienceNature from "../../public/science-nat.png";
 import sportsLeisure from "../../public/sports.png";
 import "../css/Game.css";
-import { Category, Question } from "../types.ts";
+import { Category, GameHistory, Question, WrongAnswer } from "../types.ts";
 
 export default function Game({
   category,
@@ -17,21 +17,41 @@ export default function Game({
   handleAnswerClick,
   currentQuestionIndex,
   timeLimit,
+  score,
+  questionNumber,
+  setScore,
+  setQuestionNumber,
+  addToGameHistory,
 }: {
   category: Category | null;
   questions: Question[];
   handleAnswerClick: (id: number) => void;
   currentQuestionIndex: number;
   timeLimit: number;
+  score: number;
+  questionNumber: number;
+  setScore: React.Dispatch<React.SetStateAction<number>>;
+  setQuestionNumber: (questionNumber: number) => void;
+  addToGameHistory: (history: GameHistory) => void;
 }) {
-  const [questionNumber, setQuestionNumber] = useState<number>(1);
   const navigate = useNavigate();
   const [isQuizOver, setIsQuizOver] = useState<boolean>(false);
   const [timeRemaining, setTimeRemaining] = useState<number>(timeLimit);
   const [userAnswers, setUserAnswers] = useState<{ [key: number]: string }>({});
-  const [score, setScore] = useState<number>(0);
+  const [wrongAnswers, setWrongAnswers] = useState<WrongAnswer[]>([]);
 
   useEffect(() => {
+    if (isQuizOver) {
+      addToGameHistory({
+        id: crypto.randomUUID(),
+        date: new Date(),
+        category: category!,
+        score,
+        totalQuestions: questionNumber,
+        wrongAnswers,
+      });
+      navigate("/leaderboard");
+    }
     if (timeRemaining <= 0) return;
 
     const intervalId = setInterval(() => {
@@ -54,14 +74,20 @@ export default function Game({
       [currentQuestionIndex]: answer,
     }));
 
-    // Update score immediately if answer is correct
-    if (answer === questions[currentQuestionIndex].correct) {
+    const currentQuestion = questions[currentQuestionIndex];
+    if (answer === currentQuestion.correct) {
       setScore((prev) => prev + 1);
+    } else {
+      setWrongAnswers((prev) => [
+        ...prev,
+        {
+          question: currentQuestion.question,
+          userAnswer: answer,
+          correctAnswer: currentQuestion.correct,
+        },
+      ]);
     }
   };
-
-  const day: number = new Date().getDate();
-  const month: number = new Date().getMonth();
 
   console.log(userAnswers);
 
@@ -97,10 +123,7 @@ export default function Game({
         }}
       />
       <div className="timer-container">
-        <div
-          className="timer"
-          style={{ display: timeRemaining === 0 ? "none" : "block" }}
-        >
+        <div className="timer">
           <CircularProgressbar
             value={timeRemaining}
             maxValue={timeLimit}
@@ -117,73 +140,51 @@ export default function Game({
           />
         </div>
       </div>
-      {isQuizOver ? (
-        <section className="quiz-over-container">
-          <button className="quiz-over-content">
-            <div className="quiz-one">
-              <h3>
-                {category === "history"
-                  ? "History & Geography"
+
+      {questions.length > 0 && (
+        <div
+          key={questions[currentQuestionIndex].id}
+          className="question-container"
+        >
+          <div className="question-content">
+            <img
+              src={
+                category === "history"
+                  ? historyGeography
                   : category === "science"
-                  ? "Science & Nature"
+                  ? scienceNature
                   : category === "art"
-                  ? "Art & Literature"
+                  ? literatureArt
                   : category === "pop"
-                  ? "Pop Culture"
-                  : "Sports & Leisure"}
-              </h3>
-              <p>
-                {score} / {questionNumber}
-              </p>
-            </div>
-          </button>
-        </section>
-      ) : (
-        questions.length > 0 && (
-          <div
-            key={questions[currentQuestionIndex].id}
-            className="question-container"
-          >
-            <div className="question-content">
-              <img
-                src={
-                  category === "history"
-                    ? historyGeography
-                    : category === "science"
-                    ? scienceNature
-                    : category === "art"
-                    ? literatureArt
-                    : category === "pop"
-                    ? popCulture
-                    : sportsLeisure
-                }
-              />
-              <p className="question-number">Question {questionNumber}</p>
-              <h2>{questions[currentQuestionIndex].question}</h2>
-              <ul className="answer-buttons">
-                {questions[currentQuestionIndex].answers.map((answer, i) => (
-                  <button
-                    type="button"
-                    key={i}
-                    className="answer-button"
-                    onClick={() => handleUserAnswer(answer)}
-                  >
-                    {answer}
-                  </button>
-                ))}
-              </ul>
-              <button
-                className="next-button"
-                onClick={() => {
-                  handleAnswerClick(questions[currentQuestionIndex].id);
-                  setQuestionNumber(questionNumber + 1);
-                }}
-              >
-                Next Question
-              </button>
-            </div>
+                  ? popCulture
+                  : sportsLeisure
+              }
+            />
+            <p className="question-number">Question {questionNumber}</p>
+            <h2>{questions[currentQuestionIndex].question}</h2>
+            <ul className="answer-buttons">
+              {questions[currentQuestionIndex].answers.map((answer, i) => (
+                <button
+                  type="button"
+                  key={i}
+                  className="answer-button"
+                  onClick={() => handleUserAnswer(answer)}
+                >
+                  {answer}
+                </button>
+              ))}
+            </ul>
+            <button
+              className="next-button"
+              onClick={() => {
+                handleAnswerClick(questions[currentQuestionIndex].id);
+                setQuestionNumber(questionNumber + 1);
+              }}
+            >
+              Next Question
+            </button>
           </div>
-        )
+        </div>
       )}
     </section>
   );

@@ -127,29 +127,3 @@
   background: linear-gradient(to top, #ffc259, #ffd386);
   color: white;
 }
-
-.quiz-over-content {
-  border-radius: 20px;
-  display: flex;
-  justify-content: center;
-  border: 1px solid white;
-  padding: 20px;
-  background-color: transparent;
-}
-
-.quiz-over-content h3 {
-  font-size: clamp(1.5rem, 4vw, 2rem);
-  color: white;
-}
-
-.quiz-over-content p {
-  background-color: white;
-  padding: 10px 20px;
-  border-radius: 10px;
-}
-
-.quiz-one {
-  display: flex;
-  gap: 20px;
-  align-items: center;
-}

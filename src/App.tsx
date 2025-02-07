@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import "./css/App.css";
 import Game from "./pages/Game.tsx";
 import Home from "./pages/Home.tsx";
-import { Category, Question } from "./types";
+import Leaderboard from "./pages/Leaderboard";
+import { Category, GameHistory, Question } from "./types";
 
 function App() {
   const [questions, setQuestions] = useState<Question[]>([]);
@@ -13,6 +14,16 @@ function App() {
   const [usedIndices, setUsedIndices] = useState<number[]>([]);
 
   const [timeLimit, setTimeLimit] = useState<number>(30);
+  const [score, setScore] = useState<number>(0);
+  const [questionNumber, setQuestionNumber] = useState<number>(1);
+  const [gameHistory, setGameHistory] = useState<GameHistory[]>(() => {
+    const saved = localStorage.getItem("gameHistory");
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem("gameHistory", JSON.stringify(gameHistory));
+  }, [gameHistory]);
 
   const getRandomQuestion = () => {
     if (!questions.length) return;
@@ -37,6 +48,10 @@ function App() {
     if (question) {
       getRandomQuestion();
     }
+  };
+
+  const addToGameHistory = (history: GameHistory) => {
+    setGameHistory((prev) => [history, ...prev]);
   };
 
   return (
@@ -65,8 +80,17 @@ function App() {
                 currentQuestionIndex={currentQuestionIndex}
                 handleAnswerClick={handleAnswerClick}
                 timeLimit={timeLimit}
+                score={score}
+                questionNumber={questionNumber}
+                setScore={setScore}
+                setQuestionNumber={setQuestionNumber}
+                addToGameHistory={addToGameHistory}
               />
             }
+          />
+          <Route
+            path="/leaderboard"
+            element={<Leaderboard gameHistory={gameHistory} />}
           />
         </Routes>
       </main>

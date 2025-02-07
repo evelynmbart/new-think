@@ -1,20 +1,20 @@
 import { useEffect } from "react";
-import { LuBrain, LuCrown } from "react-icons/lu";
+import { LuBrain } from "react-icons/lu";
 import { useNavigate } from "react-router-dom";
-import literatureArt from "../../public/art-lit.png";
-import historyGeography from "../../public/history-geo.png";
-import popCulture from "../../public/pop-culture.png";
-import scienceNature from "../../public/science-nat.png";
-import sportsLeisure from "../../public/sports.png";
-import thinkLogo from "../../public/think.png";
-import "../css/Home.css";
+import literatureArt from "../../art-lit.png";
+import historyGeography from "../../history-geo.png";
+import popCulture from "../../pop-culture.png";
+import scienceNature from "../../science-nat.png";
+import sportsLeisure from "../../sports.png";
+import thinkLogo from "../../think.png";
 import { questionsData } from "../questions.tsx";
 import { Category, Question } from "../types.ts";
+import "./Home.css";
 
 export default function Home({
   setQuestions,
   setCurrentQuestionIndex,
-
+  setCount,
   setUsedIndices,
   setTimeLimit,
   category,
@@ -22,6 +22,7 @@ export default function Home({
 }: {
   setQuestions: (questions: Question[]) => void;
   setCurrentQuestionIndex: (currentQuestionIndex: number) => void;
+  setCount: (count: number) => void;
   setUsedIndices: (usedIndices: number[]) => void;
   setTimeLimit: (timeLimit: number) => void;
   category: Category | null;
@@ -31,7 +32,7 @@ export default function Home({
 
   const handleCategoryClick = (category: Category) => {
     setCategory(category);
-
+    setCount(0);
     setUsedIndices([]);
     navigate("/game");
   };
@@ -51,12 +52,6 @@ export default function Home({
   return (
     <main className="app">
       <header className="app-header">
-        <LuCrown
-          id="lightbulb-icon"
-          color="gold"
-          title="to leaderboards"
-          onClick={() => navigate("/leaderboard")}
-        />
         <img src={thinkLogo} alt="Think logo" title="Think" />
         <h2>Sharpen your skills, one question at a time!</h2>
       </header>

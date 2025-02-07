@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { IoArrowBackCircleOutline } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
 import "../css/Leaderboard.css";
 import { GameHistory } from "../types";
 
@@ -15,7 +17,7 @@ function GameDetailsModal({ game, onClose }: GameDetailsModalProps) {
           ×
         </button>
         <h2>Game Details</h2>
-        <p>Date: {game.date.toLocaleDateString()}</p>
+        {/* <p>Date: {game.date.toLocaleDateString()}</p> */}
         <p>Category: {game.category}</p>
         <p>
           Score: {game.score} / {game.totalQuestions}
@@ -52,9 +54,17 @@ export default function Leaderboard({
   gameHistory: GameHistory[];
 }) {
   const [selectedGame, setSelectedGame] = useState<GameHistory | null>(null);
+  const navigate = useNavigate();
 
   return (
     <section className="leaderboard-container">
+      <button className="close-button" onClick={() => navigate("/")}>
+        <IoArrowBackCircleOutline
+          size={50}
+          title="back to home"
+          color="white"
+        />
+      </button>
       {gameHistory.map((game) => (
         <button
           key={game.id}
@@ -73,10 +83,23 @@ export default function Leaderboard({
                 ? "Pop Culture"
                 : "Sports & Leisure"}
             </h3>
-            <p>
+            <p
+              style={{
+                backgroundColor:
+                  game.category === "history"
+                    ? "#667eea"
+                    : game.category === "science"
+                    ? "#42c492"
+                    : game.category === "art"
+                    ? "#764ba2"
+                    : game.category === "pop"
+                    ? "#ff758c"
+                    : "#00b4d8",
+              }}
+            >
               {game.score} / {game.totalQuestions}
             </p>
-            <p>{game.date.toLocaleDateString()}</p>
+            {/* <p>{game.date.toLocaleDateString()}</p> */}
           </div>
         </button>
       ))}

@@ -8,6 +8,21 @@
   margin: 10px 4%;
 }
 
+#lightbulb-icon {
+  font-size: 35px;
+  color: rgba(255, 255, 255, 0.802);
+  position: absolute;
+  top: 20px;
+  right: 70px;
+  z-index: 3;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+
+#lightbulb-icon:hover {
+  transform: scale(1.3);
+}
+
 .app-header {
   display: flex;
   flex-direction: column;

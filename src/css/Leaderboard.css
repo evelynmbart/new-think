@@ -1,5 +1,7 @@
 .leaderboard-container {
   display: flex;
+  flex-direction: column;
+  gap: 20px;
   justify-content: center;
   align-items: center;
   height: 100vh;
@@ -30,12 +32,12 @@
 .leaderboard-content {
   border-radius: 20px;
   display: flex;
-  justify-content: center;
-  border: 1px solid white;
   padding: 20px;
-  background-color: transparent;
+  justify-content: center;
+  background-color: white;
   cursor: pointer;
   transition: transform 0.2s;
+  width: clamp(300px, 90%, 600px);
 }
 
 .leaderboard-content:hover {
@@ -44,12 +46,12 @@
 
 .leaderboard-content h3 {
   font-size: clamp(1.5rem, 4vw, 2rem);
-  color: white;
 }
 
 .leaderboard-content p {
-  background-color: white;
+  color: white;
   padding: 10px 20px;
+  font-size: clamp(1rem, 2vw, 1.5rem);
   border-radius: 10px;
 }
 
@@ -86,11 +88,16 @@
 .close-button {
   position: absolute;
   top: 10px;
-  right: 10px;
+  left: 10px;
   border: none;
   background: none;
   font-size: 24px;
   cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+
+.close-button:hover {
+  transform: scale(1.1);
 }
 
 .wrong-answers {

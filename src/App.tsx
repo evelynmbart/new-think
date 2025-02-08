@@ -13,7 +13,7 @@ function App() {
 
   const [usedIndices, setUsedIndices] = useState<number[]>([]);
 
-  const [timeLimit, setTimeLimit] = useState<number>(30);
+  const [timeLimit, setTimeLimit] = useState<number>(10);
   const [score, setScore] = useState<number>(0);
   const [questionNumber, setQuestionNumber] = useState<number>(1);
   const [gameHistory, setGameHistory] = useState<GameHistory[]>(() => {

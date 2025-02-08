@@ -44,9 +44,12 @@
 .question-container {
   border-radius: 10px;
   padding: 20px;
-  /* box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1); */
-  width: clamp(300px, 90%, 500px);
+  width: clamp(300px, 90%, 800px);
   margin: 0 15px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .question-content {
@@ -54,41 +57,41 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 20px;
+  gap: 15px;
   position: relative;
 }
 
 .question-content img {
-  width: min(250px, 80vw);
-  height: min(250px, 80vw);
+  width: min(200px, 70vw);
+  height: min(200px, 70vw);
   object-fit: contain;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .question-number {
-  font-size: clamp(1rem, 4vw, 1.5rem);
+  font-size: clamp(1rem, 3vw, 1.3rem);
   color: rgba(255, 255, 255, 0.709);
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   position: absolute;
-  top: min(270px, 90vw);
-  left: clamp(140px, 30vw, 165px);
+  top: min(220px, 80vw);
+  left: clamp(120px, 25vw, 145px);
 }
 
 .question-content h2 {
-  font-size: clamp(2.1rem, 5vw, 3rem);
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
   text-align: center;
   color: white;
   padding: 10px 20px;
   border-radius: 10px;
-  width: min(550px, 90vw);
-  margin-bottom: 20px;
+  width: min(700px, 90vw);
+  margin-bottom: 15px;
 }
 
 .answer-buttons {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   width: 100%;
 }
 

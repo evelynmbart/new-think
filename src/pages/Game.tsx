@@ -89,8 +89,6 @@ export default function Game({
     }
   };
 
-  console.log(userAnswers);
-
   return (
     <section
       className="game-container"
